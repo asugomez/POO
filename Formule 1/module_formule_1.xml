@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_formule_1" default="compile.module.formule_1">
+  <dirname property="module.formule_1.basedir" file="${ant.file.module_formule_1}"/>
+  
+  <property name="module.jdk.home.formule_1" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.formule_1" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.formule_1" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.formule_1" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="formule_1.output.dir" value="${module.formule_1.basedir}/out/production/Formule 1"/>
+  <property name="formule_1.testoutput.dir" value="${module.formule_1.basedir}/out/test/Formule 1"/>
+  
+  <path id="formule_1.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="formule_1.module.production.classpath">
+    <path refid="${module.jdk.classpath.formule_1}"/>
+  </path>
+  
+  <path id="formule_1.runtime.production.module.classpath">
+    <pathelement location="${formule_1.output.dir}"/>
+  </path>
+  
+  <path id="formule_1.module.classpath">
+    <path refid="${module.jdk.classpath.formule_1}"/>
+    <pathelement location="${formule_1.output.dir}"/>
+  </path>
+  
+  <path id="formule_1.runtime.module.classpath">
+    <pathelement location="${formule_1.testoutput.dir}"/>
+    <pathelement location="${formule_1.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.formule_1">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.formule_1">
+    <patternset refid="excluded.from.module.formule_1"/>
+  </patternset>
+  
+  <path id="formule_1.module.sourcepath">
+    <dirset dir="${module.formule_1.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="formule_1.module.test.sourcepath">
+    <dirset dir="${module.formule_1.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.formule_1" depends="compile.module.formule_1.production,compile.module.formule_1.tests" description="Compile module Formule 1"/>
+  
+  <target name="compile.module.formule_1.production" depends="register.custom.compilers" description="Compile module Formule 1; production classes">
+    <mkdir dir="${formule_1.output.dir}"/>
+    <javac2 destdir="${formule_1.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.formule_1}/javac">
+      <compilerarg line="${compiler.args.formule_1}"/>
+      <bootclasspath refid="formule_1.module.bootclasspath"/>
+      <classpath refid="formule_1.module.production.classpath"/>
+      <src refid="formule_1.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.formule_1"/>
+    </javac2>
+    
+    <copy todir="${formule_1.output.dir}">
+      <fileset dir="${module.formule_1.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.formule_1.tests" depends="register.custom.compilers,compile.module.formule_1.production" description="compile module Formule 1; test classes" unless="skip.tests">
+    <mkdir dir="${formule_1.testoutput.dir}"/>
+    <javac2 destdir="${formule_1.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.formule_1}/javac">
+      <compilerarg line="${compiler.args.formule_1}"/>
+      <bootclasspath refid="formule_1.module.bootclasspath"/>
+      <classpath refid="formule_1.module.classpath"/>
+      <src refid="formule_1.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.formule_1"/>
+    </javac2>
+    
+    <copy todir="${formule_1.testoutput.dir}">
+      <fileset dir="${module.formule_1.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.formule_1" description="cleanup module">
+    <delete dir="${formule_1.output.dir}"/>
+    <delete dir="${formule_1.testoutput.dir}"/>
+  </target>
+</project>

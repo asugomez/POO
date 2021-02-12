@@ -1,0 +1,1 @@
+Routage{depot=1, situé au dépôt n°1 ( +0,0,  +0,0), mesClients=[], planning=Planning{ensTournee=[Tournee{depot=1, situé au dépôt n°1 ( +0,0,  +0,0), clientsLivres=[], distanceParcourue=0.0, nbCaissesALivrer=0, capaciteMax=50}], distanceTotal=0, nbTotalCaisses=0, capaciteCamions=-2147483599}, capaciteCamion=0}
